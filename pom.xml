@@ -46,7 +46,7 @@
 		<dependency>
             <groupId>aff82667-997a-4c92-b120-8326aa8f7b96</groupId>
             <artifactId>first_project</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.2</version>
             <classifier>raml</classifier>
             <type>zip</type>
         </dependency>

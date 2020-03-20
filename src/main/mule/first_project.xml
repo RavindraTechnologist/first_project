@@ -4,8 +4,8 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
     <http:listener-config name="first_project-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="first_project-config" api="resource::aff82667-997a-4c92-b120-8326aa8f7b96:first_project:1.0.0:raml:zip:first_project.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-    <api-gateway:autodiscovery apiId="16066494" doc:name="API Autodiscovery" doc:id="eae5005f-58e7-4576-8227-916cbe39b111" flowRef="first_project-main" />
+    <apikit:config name="first_project-config" api="resource::aff82667-997a-4c92-b120-8326aa8f7b96:first_project:1.0.2:raml:zip:first_project.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <api-gateway:autodiscovery apiId="16066594" doc:name="API Autodiscovery" doc:id="3162d07c-ddb2-4a28-8c90-c56c02cc9fbb" flowRef="first_project-main" />
 	<flow name="first_project-main">
         <http:listener config-ref="first_project-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -125,21 +125,94 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-    <flow name="get:\employee:first_project-config">
+    <flow name="get:\getemployee:first_project-config">
         <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
-  data: {
-    id: "emp123",
-    title: "Mr.",
-    firstname: "Ravindra",
-    lastname: "yadav"
-  },
-  success: true,
-  status: 200
+  Employees: [
+    {
+      userId: "rirani",
+      jobTitleName: "Developer",
+      firstName: "Romin",
+      lastName: "Irani",
+      preferredFullName: "Romin Irani",
+      employeeCode: "E1",
+      region: "CA",
+      phoneNumber: "408-1234567",
+      emailAddress: "romin.k.irani@gmail.com"
+    }, 
+    {
+      userId: "nirani",
+      jobTitleName: "Developer",
+      firstName: "Neil",
+      lastName: "Irani",
+      preferredFullName: "Neil Irani",
+      employeeCode: "E2",
+      region: "CA",
+      phoneNumber: "408-1111111",
+      emailAddress: "neilrirani@gmail.com"
+    }, 
+    {
+      userId: "thanks",
+      jobTitleName: "Program Directory",
+      firstName: "Tom",
+      lastName: "Hanks",
+      preferredFullName: "Tom Hanks",
+      employeeCode: "E3",
+      region: "CA",
+      phoneNumber: "408-2222222",
+      emailAddress: "tomhanks@gmail.com"
+    }
+  ]
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="post:\postemployee:application\json:first_project-config">
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  Employees: [
+    {
+      userId: "rirani",
+      jobTitleName: "Developer",
+      firstName: "Romin",
+      lastName: "Irani",
+      preferredFullName: "Romin Irani",
+      employeeCode: "E1",
+      region: "CA",
+      phoneNumber: "408-1234567",
+      emailAddress: "romin.k.irani@gmail.com"
+    }, 
+    {
+      userId: "nirani",
+      jobTitleName: "Developer",
+      firstName: "Neil",
+      lastName: "Irani",
+      preferredFullName: "Neil Irani",
+      employeeCode: "E2",
+      region: "CA",
+      phoneNumber: "408-1111111",
+      emailAddress: "neilrirani@gmail.com"
+    }, 
+    {
+      userId: "thanks",
+      jobTitleName: "Program Directory",
+      firstName: "Tom",
+      lastName: "Hanks",
+      preferredFullName: "Tom Hanks",
+      employeeCode: "E3",
+      region: "CA",
+      phoneNumber: "408-2222222",
+      emailAddress: "tomhanks@gmail.com"
+    }
+  ]
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
