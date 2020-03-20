@@ -1,0 +1,99 @@
+#%RAML 1.0
+title: first_project
+baseUri: http://firstprojectapp.us-e2.cloudhub.io/api
+version: v1
+mediaType: 
+  - application/json
+types:
+  Locales:
+    enum: [ en-US, it-IT, en-AU ]
+  Employee:
+    type: object
+    example:
+      {
+    "Employees":[
+        {
+          "userId":"rirani",
+          "jobTitleName":"Developer",
+          "firstName":"Romin",
+          "lastName":"Irani",
+          "preferredFullName":"Romin Irani",
+          "employeeCode":"E1",
+          "region":"CA",
+          "phoneNumber":"408-1234567",
+          "emailAddress":"romin.k.irani@gmail.com",
+        },
+        {
+          "userId":"nirani",
+          "jobTitleName":"Developer",
+          "firstName":"Neil",
+          "lastName":"Irani",
+          "preferredFullName":"Neil Irani",
+          "employeeCode":"E2",
+          "region":"CA",
+          "phoneNumber":"408-1111111",
+          "emailAddress":"neilrirani@gmail.com"
+        },
+        {
+          "userId":"thanks",
+          "jobTitleName":"Program Directory",
+          "firstName":"Tom",
+          "lastName":"Hanks",
+          "preferredFullName":"Tom Hanks",
+          "employeeCode":"E3",
+          "region":"CA",
+          "phoneNumber":"408-2222222",
+          "emailAddress":"tomhanks@gmail.com"
+        }
+    ]
+  }
+
+/getemployee:
+  get:
+    description: Retrieve Employee details
+    displayName: Get Employee Operation
+    headers:
+      Accept-Language:
+        displayName: Accept-Language 
+        type: Locales
+        description: Accepted Language for the API
+        default: "en-US"
+        required: false
+    queryParameters:
+      employeeId:
+        displayName: Employee Id  
+        type: string
+        description: Id of the Employee
+        example: emp123
+        required: false
+      empFirstName:
+        displayName: First Name
+        type: string
+        description: First Name of the Employee
+        example: Ravindra
+        required: false
+    responses:
+      200:
+        description: success
+        body:
+          application/json:
+            type: Employee
+/postemployee:                
+  post:
+    description: Create Employee records of the organization
+    displayName: Create Employee Operation
+    headers:
+      Accept-Language:
+        displayName: Accept-Language 
+        type: Locales
+        description: Accepted Language for the API
+        default: "en-US"
+        required: false
+    body:
+      application/json:
+        type: Employee
+    responses:
+      201:
+        body:
+          application/json:
+            type: Employee
